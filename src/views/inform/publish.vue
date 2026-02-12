@@ -46,16 +46,19 @@ const editorConfig = {
             customInsert(res, insertFn) {
                 if (res.errno == 0) {
                     let data = res.data;
-                    let url = data.url
-                    let href = data.href
+                    let url = data.url;
+                    let href = data.href;
                     let alt = data.alt;
-                    let aaa = import.meta.env.VITE_BASE_URL + '/image/upload'
-                    console.log("server:", aaa)
-                    console.log('customInsert', res, url, alt, href)
-                    console.log('VITE_BASE_URL=', import.meta.env.VITE_BASE_URL)
-                    console.log('returned data.url=', data.url)
+
+                    // 如果已经是完整URL，提取纯路径部分，避免wangEditor重复拼接
+                    if (url.startsWith('http')) {
+                        url = new URL(url).pathname;  // 提取 /media/xxx.png
+                    }
+                    if (href.startsWith('http')) {
+                        href = new URL(href).pathname;
+                    }
+
                     insertFn(url, alt, href)
-                } else {
                     ElMessage.error(res.message)
                 }
             },
