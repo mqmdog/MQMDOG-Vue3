@@ -46,12 +46,14 @@ const editorConfig = {
             customInsert(res, insertFn) {
                 if (res.errno == 0) {
                     let data = res.data;
-                    let url = import.meta.env.VITE_BASE_URL.replace("/api", "") + data.url
-                    let href = import.meta.env.VITE_BASE_URL.replace("/api", "") + data.href
+                    let url = data.url
+                    let href = data.href
                     let alt = data.alt;
                     let aaa = import.meta.env.VITE_BASE_URL + '/image/upload'
                     console.log("server:", aaa)
                     console.log('customInsert', res, url, alt, href)
+                    console.log('VITE_BASE_URL=', import.meta.env.VITE_BASE_URL)
+                    console.log('returned data.url=', data.url)
                     insertFn(url, alt, href)
                 } else {
                     ElMessage.error(res.message)
