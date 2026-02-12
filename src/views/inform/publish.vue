@@ -45,14 +45,11 @@ const editorConfig = {
             timeout: 6 * 1000, // 6 秒,
             customInsert(res, insertFn) {
                 if (res.errno == 0) {
-                    const data = res.data;
-                    const base = import.meta.env.VITE_BASE_URL.replace("/api", "")
-                    const urlPath = data.url ? data.url.replace(/^\/api/, '') : ''
-                    const hrefPath = data.href ? data.href.replace(/^\/api/, '') : ''
-                    const url = base + urlPath
-                    const href = base + hrefPath
-                    const alt = data.alt;
-                    const aaa = import.meta.env.VITE_BASE_URL + '/image/upload'
+                    let data = res.data;
+                    let url = import.meta.env.VITE_BASE_URL.replace("/api", "") + data.url
+                    let href = import.meta.env.VITE_BASE_URL.replace("/api", "") + data.href
+                    let alt = data.alt;
+                    let aaa = import.meta.env.VITE_BASE_URL + '/image/upload'
                     console.log("server:", aaa)
                     console.log('customInsert', res, url, alt, href)
                     insertFn(url, alt, href)
