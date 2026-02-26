@@ -5,8 +5,9 @@ const getDepartmentStaffCount = () => {
     return http.get(path)
 }
 
+// 获取最新通知
 const getLatestInforms = () => {
-    const path = '/home/latest/inform'
+    const path = '/home/latest/inform' // 后端接口地址
     return http.get(path)
 }
 
